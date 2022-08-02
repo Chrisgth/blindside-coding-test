@@ -71,17 +71,21 @@ h2 {
 }
 
 .login > button:hover,
-.smallButton:hover {
+.smallButton:hover,
+.searchBar > a:hover {
   box-shadow: 1px 0px 18px -2px rgba(255, 255, 255, 0.7);
 }
 
-.smallButton {
+.smallButton,
+.searchBar > a {
   background-color: #343434;
   color: white;
   border: 2px solid white;
   border-radius: 4px;
   padding: 4px 8px 4px 8px;
   cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
 }
 
 input {

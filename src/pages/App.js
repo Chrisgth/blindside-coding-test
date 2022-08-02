@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Nav from "../components/Nav";
+import LoadingSpinner from "../components/Spinner";
 import Login from "./Login";
 import Search from "./Search";
 
@@ -14,7 +15,11 @@ function App() {
   console.log(user, isAuthenticated, isLoading);
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <div className="appLoading">
+        <LoadingSpinner />
+      </div>
+    );
   }
   return (
     <Router>

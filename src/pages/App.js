@@ -15,8 +15,8 @@ import Video from "./Video";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user, isAuthenticated, isLoading);
-  const [navSearch, setNavSearch] = useState(true);
+  const [navSearch, setNavSearch] = useState(false);
+  const [input, setInput] = useState("");
 
   if (isLoading) {
     return (
@@ -28,7 +28,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Nav navSearch={navSearch} />
+        <Nav navSearch={navSearch} input={input} setInput={setInput} />
         <div className="content">
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
@@ -40,7 +40,12 @@ function App() {
               path="/search"
               element={
                 user && isAuthenticated ? (
-                  <Search navSearch={navSearch} setNavSearch={setNavSearch} />
+                  <Search
+                    navSearch={navSearch}
+                    setNavSearch={setNavSearch}
+                    input={input}
+                    setInput={setInput}
+                  />
                 ) : (
                   <Navigate to="/login" />
                 )
@@ -49,13 +54,21 @@ function App() {
             <Route
               path="/videos"
               element={
-                user && isAuthenticated ? <Videos /> : <Navigate to="/login" />
+                user && isAuthenticated ? (
+                  <Videos setNavSearch={setNavSearch} />
+                ) : (
+                  <Navigate to="/login" />
+                )
               }
             />
             <Route
               path="/videos/:id"
               element={
-                user && isAuthenticated ? <Video /> : <Navigate to="/login" />
+                user && isAuthenticated ? (
+                  <Video setNavSearch={setNavSearch} />
+                ) : (
+                  <Navigate to="/login" />
+                )
               }
             />
           </Routes>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { getVideos } from "../services/getVideos";
 
-const Videos = () => {
+const Videos = ({ setNavSearch }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [results, setResults] = useState();
   let query = searchParams.get("query");
@@ -27,6 +27,7 @@ const Videos = () => {
 
   useEffect(() => {
     displayVideos();
+    setNavSearch(true);
   }, []);
 
   return (

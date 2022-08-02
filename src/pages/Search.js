@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Search = ({ setNavSearch }) => {
-  const [input, setInput] = useState("");
+const Search = ({ setNavSearch, input, setInput }) => {
   useEffect(() => {
     setNavSearch(false);
   }, []);

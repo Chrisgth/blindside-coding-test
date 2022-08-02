@@ -8,6 +8,10 @@ body {
   background-color: #36454f;
 }
 
+p {
+  margin: 0;
+}
+
 #root,
 .app {
   min-height: 100vh;
@@ -109,4 +113,10 @@ input {
 
 .searchBar {
   width: 100%;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }

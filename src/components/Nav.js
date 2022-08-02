@@ -13,12 +13,15 @@ const Nav = ({ navSearch }) => {
         </div>
       )}
       {user && (
-        <button
-          onClick={() => logout({ returnTo: "http://localhost:3000/login" })}
-          className="smallButton"
-        >
-          Log Out
-        </button>
+        <div className="profile">
+          <p>Welcome {user.given_name}!</p>
+          <button
+            onClick={() => logout({ returnTo: "http://localhost:3000/login" })}
+            className="smallButton"
+          >
+            Log Out
+          </button>
+        </div>
       )}
     </div>
   );

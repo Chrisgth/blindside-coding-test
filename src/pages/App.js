@@ -10,6 +10,7 @@ import Nav from "../components/Nav";
 import LoadingSpinner from "../components/Spinner";
 import Login from "./Login";
 import Search from "./Search";
+import Videos from "./Videos";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -42,6 +43,12 @@ function App() {
                 ) : (
                   <Navigate to="/login" />
                 )
+              }
+            />
+            <Route
+              path="/videos"
+              element={
+                user && isAuthenticated ? <Videos /> : <Navigate to="/login" />
               }
             />
           </Routes>

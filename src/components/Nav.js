@@ -1,11 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 const Nav = ({ navSearch }) => {
   const { logout, user } = useAuth0();
 
   return (
     <div className="nav">
-      <h2>Video Player</h2>
+      <Link to="/search">Video Player</Link>
       {user && navSearch && (
         <div className="navSearch">
           <input type="text" />

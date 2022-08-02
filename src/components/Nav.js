@@ -1,20 +1,21 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
-const Nav = () => {
+const Nav = ({ navSearch }) => {
   const { logout, user } = useAuth0();
 
   return (
     <div className="nav">
       <h2>Video Player</h2>
-      {user && (
+      {user && navSearch && (
         <div className="navSearch">
           <input type="text" />
-          <button>Search</button>
+          <button className="smallButton">Search</button>
         </div>
       )}
       {user && (
         <button
           onClick={() => logout({ returnTo: "http://localhost:3000/login" })}
+          className="smallButton"
         >
           Log Out
         </button>

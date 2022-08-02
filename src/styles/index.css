@@ -6,8 +6,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #36454f;
+}
+
+#root,
+.app {
   min-height: 100vh;
   min-width: 100vw;
+  height: 1px;
 }
 
 code {
@@ -17,6 +22,11 @@ code {
 
 h2 {
   margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
 }
 
 .nav {
@@ -34,4 +44,69 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.login {
+  align-self: center;
+}
+
+.login > button {
+  background-color: #343434;
+  color: white;
+  border: 4px solid white;
+  border-radius: 8px;
+  font-size: 2rem;
+  padding: 10px 40px 10px 40px;
+  cursor: pointer;
+}
+
+.login > button:hover,
+.smallButton:hover {
+  box-shadow: 1px 0px 18px -2px rgba(255, 255, 255, 0.7);
+}
+
+.smallButton {
+  background-color: #343434;
+  color: white;
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 4px 8px 4px 8px;
+  cursor: pointer;
+}
+
+input {
+  background-color: #343434;
+  color: white;
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 4px 8px 4px 8px;
+  width: 100%;
+}
+
+.navSearch,
+.searchBar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  min-width: 60%;
+  color: white;
+}
+
+.searchBar {
+  width: 100%;
 }

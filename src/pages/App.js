@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -13,6 +14,7 @@ import Search from "./Search";
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   console.log(user, isAuthenticated, isLoading);
+  const [navSearch, setNavSearch] = useState(true);
 
   if (isLoading) {
     return (
@@ -24,7 +26,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Nav />
+        <Nav navSearch={navSearch} />
         <div className="content">
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
@@ -35,7 +37,11 @@ function App() {
             <Route
               path="/search"
               element={
-                user && isAuthenticated ? <Search /> : <Navigate to="/login" />
+                user && isAuthenticated ? (
+                  <Search navSearch={navSearch} setNavSearch={setNavSearch} />
+                ) : (
+                  <Navigate to="/login" />
+                )
               }
             />
           </Routes>

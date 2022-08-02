@@ -124,3 +124,39 @@ input {
   align-items: center;
   gap: 1rem;
 }
+
+.results {
+  width: 80%;
+}
+
+.videos {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.videoWrapper {
+  width: 200px;
+  height: auto;
+  margin: 0;
+}
+
+.videoWrapper > img {
+  width: 100%;
+}
+
+.videoLink {
+  text-decoration: none;
+  color: white;
+  border: 4px solid white;
+  width: 200px;
+}
+
+.videoWrapper > p {
+  padding: 4px;
+  max-height: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

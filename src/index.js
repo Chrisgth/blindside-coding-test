@@ -9,7 +9,7 @@ root.render(
   <Auth0Provider
     domain="dev-ylsg2zq6.us.auth0.com"
     clientId="TrmLIlu4h34g4ko86NF9zx28lGrsjw6N"
-    redirectUri={"http://localhost:3000"}
+    redirectUri={"http://localhost:3000/search"}
   >
     <App />
   </Auth0Provider>

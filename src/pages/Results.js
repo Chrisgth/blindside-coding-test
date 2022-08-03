@@ -39,7 +39,7 @@ const Videos = ({ setNavSearch }) => {
       {results && (
         <div className="videos">
           {results.data.data.map((video) => (
-            <Link to={video.uri} className="videoLink">
+            <Link to={video.uri} className="videoLink" key={video.uri}>
               <div className="videoWrapper">
                 <img src={video.pictures.sizes[1].link} alt="" />
                 <p>{video.name}</p>

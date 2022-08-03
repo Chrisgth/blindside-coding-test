@@ -4,9 +4,12 @@ import { getRelated } from "../services/getRelated";
 import { getVideo } from "../services/getVideo";
 import Parser from "html-react-parser";
 
-const Video = ({ setNavSearch }) => {
+const Video = ({ setNavSearch, user }) => {
   const [video, setVideo] = useState();
   const [relatedVideos, setRelatedVideos] = useState();
+  const [text, setText] = useState("");
+  const [comments, setComments] = useState([]);
+  const [showComments, setShowComments] = useState(true);
   const id = useParams();
   const displayVideo = async () => {
     if (id.id === "") {
@@ -19,12 +22,33 @@ const Video = ({ setNavSearch }) => {
       const relatedResult = await getRelated(config, id.id);
       setVideo(searchResult);
       setRelatedVideos(relatedResult);
-      console.log(searchResult);
-      console.log(relatedResult);
     }
   };
+
+  const onChangeHandler = (e) => {
+    setText(e.target.value);
+  };
+
+  const commentToggle = () => {
+    showComments === true ? setShowComments(false) : setShowComments(true);
+  };
+
+  const onClickHandler = () => {
+    const newComments = [...comments];
+    let comment = {
+      message: text,
+      username: user.nickname,
+      picture: user.picture,
+    };
+    newComments.push(comment);
+    setComments(newComments);
+    setText("");
+  };
+
   useEffect(() => {
     displayVideo();
+    setComments([]);
+    setText("");
   }, [id]);
   useEffect(() => {
     setNavSearch(true);
@@ -42,6 +66,9 @@ const Video = ({ setNavSearch }) => {
               <h3>Related</h3>
               {relatedVideos && (
                 <div className="relatedVideos">
+                  {relatedVideos.data.total === 0 && (
+                    <p>No related videos have been found.</p>
+                  )}
                   {relatedVideos.data.data.map((video) => (
                     <Link to={video.uri} className="videoLink">
                       <div className="relatedVideoWrapper">
@@ -61,8 +88,25 @@ const Video = ({ setNavSearch }) => {
                   id="comment"
                   cols="30"
                   rows="5"
+                  value={text}
+                  onChange={(e) => onChangeHandler(e)}
                 ></textarea>
-                <button className="smallButton">Add Comment</button>
+                <button className="smallButton" onClick={onClickHandler}>
+                  Add Comment
+                </button>
+              </div>
+              <div className="allComments">
+                <button className="smallButton" onClick={commentToggle}>
+                  Toggle comments
+                </button>
+                {showComments === true &&
+                  comments.map((comment) => (
+                    <div className="comment">
+                      <img src={comment.picture} alt="profile" />
+                      <h4>{comment.username}</h4>
+                      <p>{comment.message}</p>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

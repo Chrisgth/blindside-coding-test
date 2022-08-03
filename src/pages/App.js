@@ -17,7 +17,7 @@ function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [navSearch, setNavSearch] = useState(false);
   const [input, setInput] = useState("");
-
+  console.log(user);
   if (isLoading) {
     return (
       <div className="appLoading">
@@ -65,7 +65,7 @@ function App() {
               path="/videos/:id"
               element={
                 user && isAuthenticated ? (
-                  <Video setNavSearch={setNavSearch} />
+                  <Video setNavSearch={setNavSearch} user={user} />
                 ) : (
                   <Navigate to="/login" />
                 )

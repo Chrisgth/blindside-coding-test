@@ -10,7 +10,7 @@ http://localhost:3000
 Features
 
 - This application uses Auth0 to log users in, authenticate them and log them out. Without logging in other application features are not accessible.
-- Once logged in, users can navigate a video storage api via the main search page input bar or the nav search bar which is only accessible when not on the search page or a videos are not currently loading.
+- Once logged in, users can navigate a video storage api via the main search page input bar or the nav search bar which is only accessible when not on the search page or videos are not currently loading.
 - Once a search has been initiated, the application will then send users to the results page where their parameters are input into the search query and extracted with a React hook.
   This query is then sent to the API using the axios package.
 - When results are fetched using axios, they are then interpreted in an easily digestable and paginated format in the results page. Users can click on any video to fetch that video's data, or select the next page (if applicable) to load more videos.

@@ -295,3 +295,19 @@ h3 {
   box-shadow: 1px 0px 18px -2px rgba(255, 255, 255, 0.7);
   cursor: pointer;
 }
+
+@media (max-width: 700px) {
+  .nav {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 519px) {
+  .videos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

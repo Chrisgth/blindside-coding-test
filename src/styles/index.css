@@ -182,7 +182,8 @@ textarea {
   width: 200px;
 }
 
-.videoWrapper > p {
+.videoWrapper > p,
+.relatedVideoWrapper > p {
   padding: 4px;
   max-height: 20px;
   text-overflow: ellipsis;

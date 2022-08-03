@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import LoadingSpinner from "../components/Spinner";
 import { getVideos } from "../services/getVideos";
 
-const Videos = ({ setNavSearch }) => {
+const Videos = ({ setNavSearch, input, setInput }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [results, setResults] = useState();
   const [resultsLoading, setResultsLoading] = useState(true);
@@ -36,6 +36,12 @@ const Videos = ({ setNavSearch }) => {
     page = searchParams.get("page");
     displayVideos();
   }, [searchParams]);
+
+  useEffect(() => {
+    if (input === "") {
+      setInput(query);
+    }
+  }, []);
 
   return (
     <div className="results">

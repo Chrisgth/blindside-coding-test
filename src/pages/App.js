@@ -55,7 +55,11 @@ function App() {
               path="/videos"
               element={
                 user && isAuthenticated ? (
-                  <Videos setNavSearch={setNavSearch} />
+                  <Videos
+                    setNavSearch={setNavSearch}
+                    input={input}
+                    setInput={setInput}
+                  />
                 ) : (
                   <Navigate to="/login" />
                 )

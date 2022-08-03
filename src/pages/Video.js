@@ -12,9 +12,10 @@ const Video = ({ setNavSearch, user }) => {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(true);
   const [videoLoading, setVideoLoading] = useState(true);
-  const id = useParams();
+  const linkParams = useParams();
+  const { id } = linkParams;
   const displayVideo = async () => {
-    if (id.id === "") {
+    if (id === "") {
       return;
     } else {
       setVideoLoading(true);
@@ -23,8 +24,8 @@ const Video = ({ setNavSearch, user }) => {
       const config = {
         headers: { Authorization: `Bearer ${process.env.REACT_APP_APP_KEY}` },
       };
-      const searchResult = await getVideo(config, id.id);
-      const relatedResult = await getRelated(config, id.id);
+      const searchResult = await getVideo(config, id);
+      const relatedResult = await getRelated(config, id);
       console.log(searchResult);
       setVideo(searchResult);
       setRelatedVideos(relatedResult);
@@ -61,6 +62,7 @@ const Video = ({ setNavSearch, user }) => {
   }, [id]);
   useEffect(() => {
     setNavSearch(true);
+    console.log("generaluseeffect");
   }, []);
   return (
     <div className="video">

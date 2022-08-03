@@ -4,6 +4,8 @@ import { getRelated } from "../services/getRelated";
 import { getVideo } from "../services/getVideo";
 import Parser from "html-react-parser";
 import LoadingSpinner from "../components/Spinner";
+import Left from "../images/left-arrow.png";
+import Right from "../images/right-arrow.png";
 
 const Video = ({ setNavSearch, user }) => {
   const [video, setVideo] = useState();
@@ -12,6 +14,8 @@ const Video = ({ setNavSearch, user }) => {
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(true);
   const [videoLoading, setVideoLoading] = useState(true);
+  const [relatedLoading, setRelatedLoading] = useState(false);
+  const [page, setPage] = useState(1);
   const linkParams = useParams();
   const { id } = linkParams;
   const displayVideo = async () => {
@@ -20,15 +24,11 @@ const Video = ({ setNavSearch, user }) => {
     } else {
       setVideoLoading(true);
       setVideo();
-      setRelatedVideos();
       const config = {
         headers: { Authorization: `Bearer ${process.env.REACT_APP_APP_KEY}` },
       };
       const searchResult = await getVideo(config, id);
-      const relatedResult = await getRelated(config, id);
-      console.log(searchResult);
       setVideo(searchResult);
-      setRelatedVideos(relatedResult);
       setVideoLoading(false);
     }
   };
@@ -55,10 +55,36 @@ const Video = ({ setNavSearch, user }) => {
     setText("");
   };
 
+  const getRelatedPage = async () => {
+    setRelatedVideos();
+    const config = {
+      headers: { Authorization: `Bearer ${process.env.REACT_APP_APP_KEY}` },
+    };
+    setRelatedLoading(true);
+    const relatedResult = await getRelated(config, id, page);
+    setRelatedVideos(relatedResult);
+    setRelatedLoading(false);
+  };
+
+  const displayPage = (direction) => {
+    const newPage = page;
+    if (direction === "left") {
+      setPage(newPage - 1);
+    }
+    if (direction === "right") {
+      setPage(newPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    getRelatedPage();
+  }, [page]);
+
   useEffect(() => {
     displayVideo();
     setComments([]);
     setText("");
+    setPage(1);
   }, [id]);
   useEffect(() => {
     setNavSearch(true);
@@ -81,19 +107,39 @@ const Video = ({ setNavSearch, user }) => {
           <div className="videoRelated">
             <div className="related">
               <h3>Related</h3>
+              {relatedLoading && <LoadingSpinner />}
               {relatedVideos && (
                 <div className="relatedVideos">
                   {relatedVideos.data.total === 0 && (
                     <p>No related videos have been found.</p>
                   )}
                   {relatedVideos.data.data.map((video) => (
-                    <Link to={video.uri} className="videoLink">
+                    <Link to={video.uri} className="videoLink" key={video.uri}>
                       <div className="relatedVideoWrapper">
                         <img src={video.pictures.sizes[1].link} alt="" />
                         <p>{video.name}</p>
                       </div>
                     </Link>
                   ))}
+                </div>
+              )}
+              {relatedVideos && relatedVideos.data.data.length !== 0 && (
+                <div className="pages">
+                  {relatedVideos.data.paging.previous !== null && (
+                    <img
+                      src={Left}
+                      alt="left arrow"
+                      onClick={() => displayPage("left")}
+                    />
+                  )}
+                  <p>{relatedVideos.data.page}</p>
+                  {relatedVideos.data.paging.next !== null && (
+                    <img
+                      src={Right}
+                      alt="right arrow"
+                      onClick={() => displayPage("right")}
+                    />
+                  )}
                 </div>
               )}
             </div>
@@ -118,7 +164,7 @@ const Video = ({ setNavSearch, user }) => {
                 </div>
                 <div className="allComments">
                   {comments.map((comment) => (
-                    <div className="comment">
+                    <div className="comment" key={comments.indexOf(comment)}>
                       <img src={comment.picture} alt="profile" />
                       <h4>{comment.username}</h4>
                       <p>{comment.message}</p>

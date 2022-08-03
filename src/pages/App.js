@@ -17,7 +17,6 @@ function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [navSearch, setNavSearch] = useState(false);
   const [input, setInput] = useState("");
-  console.log(user);
   if (isLoading) {
     return (
       <div className="appLoading">

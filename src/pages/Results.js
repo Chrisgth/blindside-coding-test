@@ -28,7 +28,6 @@ const Videos = ({ setNavSearch, input, setInput }) => {
       };
       const searchResult = await getVideos(config);
       setResults(searchResult);
-      console.log(searchResult);
       setResultsLoading(false);
       setNavSearch(true);
     }

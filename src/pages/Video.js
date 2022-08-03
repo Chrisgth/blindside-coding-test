@@ -62,7 +62,6 @@ const Video = ({ setNavSearch, user }) => {
   }, [id]);
   useEffect(() => {
     setNavSearch(true);
-    console.log("generaluseeffect");
   }, []);
   return (
     <div className="video">

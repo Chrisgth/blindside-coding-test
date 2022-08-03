@@ -19,7 +19,7 @@ const Nav = ({ navSearch, input, setInput }) => {
           />
           <Link
             className="smallButton"
-            to={`/videos?query=${input ? input : "cats"}`}
+            to={`/videos?query=${input ? input : "cats"}&page=1`}
           >
             Search
           </Link>

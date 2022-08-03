@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import LoadingSpinner from "../components/Spinner";
 import { getVideos } from "../services/getVideos";
+import Left from "../images/left-arrow.png";
+import Right from "../images/right-arrow.png";
 
 const Videos = ({ setNavSearch, input, setInput }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,6 +33,22 @@ const Videos = ({ setNavSearch, input, setInput }) => {
       setNavSearch(true);
     }
   };
+
+  const getPage = (direction) => {
+    if (direction === "left") {
+      setSearchParams({
+        query: searchParams.get("query"),
+        page: Number(searchParams.get("page")) - 1,
+      });
+    }
+    if (direction === "right") {
+      setSearchParams({
+        query: searchParams.get("query"),
+        page: Number(searchParams.get("page")) + 1,
+      });
+    }
+  };
+
   useEffect(() => {
     query = searchParams.get("query");
     page = searchParams.get("page");
@@ -59,6 +77,21 @@ const Videos = ({ setNavSearch, input, setInput }) => {
               </div>
             </Link>
           ))}
+        </div>
+      )}
+      {results && results.data.data.length !== 0 && (
+        <div className="pages">
+          {results.data.paging.previous !== null && (
+            <img src={Left} alt="left arrow" onClick={() => getPage("left")} />
+          )}
+          <p>{results.data.page}</p>
+          {results.data.paging.next !== null && (
+            <img
+              src={Right}
+              alt="right arrow"
+              onClick={() => getPage("right")}
+            />
+          )}
         </div>
       )}
     </div>

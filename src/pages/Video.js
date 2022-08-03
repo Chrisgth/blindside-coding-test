@@ -26,6 +26,7 @@ const Video = ({ setNavSearch, user }) => {
   };
 
   const onChangeHandler = (e) => {
+    if (e.target.value.length > 500) return;
     setText(e.target.value);
   };
 
@@ -34,6 +35,7 @@ const Video = ({ setNavSearch, user }) => {
   };
 
   const onClickHandler = () => {
+    if (text === "") return;
     const newComments = [...comments];
     let comment = {
       message: text,
@@ -80,35 +82,36 @@ const Video = ({ setNavSearch, user }) => {
                 </div>
               )}
             </div>
-            <div className="comments">
-              <h3>Comments</h3>
-              <div className="addComment">
-                <textarea
-                  name="comment"
-                  id="comment"
-                  cols="30"
-                  rows="5"
-                  value={text}
-                  onChange={(e) => onChangeHandler(e)}
-                ></textarea>
-                <button className="smallButton" onClick={onClickHandler}>
-                  Add Comment
-                </button>
-              </div>
-              <div className="allComments">
-                <button className="smallButton" onClick={commentToggle}>
-                  Toggle comments
-                </button>
-                {showComments === true &&
-                  comments.map((comment) => (
+            <button className="smallButton" onClick={commentToggle}>
+              Toggle comments
+            </button>
+            {showComments === true && (
+              <div className="comments">
+                <h3>Comments</h3>
+                <div className="addComment">
+                  <textarea
+                    name="comment"
+                    id="comment"
+                    cols="30"
+                    rows="5"
+                    value={text}
+                    onChange={(e) => onChangeHandler(e)}
+                  ></textarea>
+                  <button className="smallButton" onClick={onClickHandler}>
+                    Add Comment
+                  </button>
+                </div>
+                <div className="allComments">
+                  {comments.map((comment) => (
                     <div className="comment">
                       <img src={comment.picture} alt="profile" />
                       <h4>{comment.username}</h4>
                       <p>{comment.message}</p>
                     </div>
                   ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}

@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { getRelated } from "../services/getRelated";
-import { getVideo } from "../services/getVideo";
-import Parser from "html-react-parser";
-import LoadingSpinner from "../components/Spinner";
-import Left from "../images/left-arrow.png";
-import Right from "../images/right-arrow.png";
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { getRelated } from '../services/getRelated';
+import { getVideo } from '../services/getVideo';
+import Parser from 'html-react-parser';
+import LoadingSpinner from '../components/Spinner';
+import Left from '../images/left-arrow.png';
+import Right from '../images/right-arrow.png';
 
 const Video = ({ setNavSearch, user }) => {
   const [video, setVideo] = useState();
   const [relatedVideos, setRelatedVideos] = useState();
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(true);
   const [videoLoading, setVideoLoading] = useState(true);
@@ -19,7 +19,7 @@ const Video = ({ setNavSearch, user }) => {
   const linkParams = useParams();
   const { id } = linkParams;
   const displayVideo = async () => {
-    if (id === "") {
+    if (id === '') {
       return;
     } else {
       setVideoLoading(true);
@@ -43,7 +43,7 @@ const Video = ({ setNavSearch, user }) => {
   };
 
   const onClickHandler = () => {
-    if (text === "") return;
+    if (text === '') return;
     const newComments = [...comments];
     let comment = {
       message: text,
@@ -52,7 +52,7 @@ const Video = ({ setNavSearch, user }) => {
     };
     newComments.push(comment);
     setComments(newComments);
-    setText("");
+    setText('');
   };
 
   const getRelatedPage = async () => {
@@ -68,10 +68,10 @@ const Video = ({ setNavSearch, user }) => {
 
   const displayPage = (direction) => {
     const newPage = page;
-    if (direction === "left") {
+    if (direction === 'left') {
       setPage(newPage - 1);
     }
-    if (direction === "right") {
+    if (direction === 'right') {
       setPage(newPage + 1);
     }
   };
@@ -83,7 +83,7 @@ const Video = ({ setNavSearch, user }) => {
   useEffect(() => {
     displayVideo();
     setComments([]);
-    setText("");
+    setText('');
     setPage(1);
   }, [id]);
   useEffect(() => {
@@ -95,11 +95,7 @@ const Video = ({ setNavSearch, user }) => {
       {video && (
         <div className="videoContent">
           <div className="videoPlayer">
-            {video.data.embed.html ? (
-              Parser(video.data.embed.html)
-            ) : (
-              <p>Embed not found.</p>
-            )}
+            {video.data.embed.html ? Parser(video.data.embed.html) : <p>Embed not found.</p>}
           </div>
           <div className="title">
             <h3>{video.data.name}</h3>
@@ -110,9 +106,7 @@ const Video = ({ setNavSearch, user }) => {
               {relatedLoading && <LoadingSpinner />}
               {relatedVideos && (
                 <div className="relatedVideos">
-                  {relatedVideos.data.total === 0 && (
-                    <p>No related videos have been found.</p>
-                  )}
+                  {relatedVideos.data.total === 0 && <p>No related videos have been found.</p>}
                   {relatedVideos.data.data.map((video) => (
                     <Link to={video.uri} className="videoLink" key={video.uri}>
                       <div className="relatedVideoWrapper">
@@ -126,19 +120,11 @@ const Video = ({ setNavSearch, user }) => {
               {relatedVideos && relatedVideos.data.data.length !== 0 && (
                 <div className="pages">
                   {relatedVideos.data.paging.previous !== null && (
-                    <img
-                      src={Left}
-                      alt="left arrow"
-                      onClick={() => displayPage("left")}
-                    />
+                    <img src={Left} alt="left arrow" onClick={() => displayPage('left')} />
                   )}
                   <p>{relatedVideos.data.page}</p>
                   {relatedVideos.data.paging.next !== null && (
-                    <img
-                      src={Right}
-                      alt="right arrow"
-                      onClick={() => displayPage("right")}
-                    />
+                    <img src={Right} alt="right arrow" onClick={() => displayPage('right')} />
                   )}
                 </div>
               )}

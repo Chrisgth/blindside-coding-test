@@ -1,22 +1,17 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
-import Nav from "../components/Nav";
-import LoadingSpinner from "../components/Spinner";
-import Login from "./Login";
-import Search from "./Search";
-import Videos from "./Results";
-import Video from "./Video";
+import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Nav from '../components/Nav';
+import LoadingSpinner from '../components/Spinner';
+import Login from './Login';
+import Search from './Search';
+import Videos from './Results';
+import Video from './Video';
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [navSearch, setNavSearch] = useState(false);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   if (isLoading) {
     return (
       <div className="appLoading">
@@ -31,10 +26,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
-            <Route
-              path="/login"
-              element={!user ? <Login /> : <Navigate to="/search" />}
-            />
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/search" />} />
             <Route
               path="/search"
               element={
@@ -54,11 +46,7 @@ function App() {
               path="/videos"
               element={
                 user && isAuthenticated ? (
-                  <Videos
-                    setNavSearch={setNavSearch}
-                    input={input}
-                    setInput={setInput}
-                  />
+                  <Videos setNavSearch={setNavSearch} input={input} setInput={setInput} />
                 ) : (
                   <Navigate to="/login" />
                 )

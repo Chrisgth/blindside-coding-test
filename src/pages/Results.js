@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import LoadingSpinner from "../components/Spinner";
-import { getVideos } from "../services/getVideos";
-import Left from "../images/left-arrow.png";
-import Right from "../images/right-arrow.png";
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import LoadingSpinner from '../components/Spinner';
+import { getVideos } from '../services/getVideos';
+import Left from '../images/left-arrow.png';
+import Right from '../images/right-arrow.png';
 
 const Videos = ({ setNavSearch, input, setInput }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +13,7 @@ const Videos = ({ setNavSearch, input, setInput }) => {
   let page;
 
   const displayVideos = async () => {
-    if (query === "") {
+    if (query === '') {
       return;
     } else {
       setNavSearch(false);
@@ -34,28 +34,28 @@ const Videos = ({ setNavSearch, input, setInput }) => {
   };
 
   const getPage = (direction) => {
-    if (direction === "left") {
+    if (direction === 'left') {
       setSearchParams({
-        query: searchParams.get("query"),
-        page: Number(searchParams.get("page")) - 1,
+        query: searchParams.get('query'),
+        page: Number(searchParams.get('page')) - 1,
       });
     }
-    if (direction === "right") {
+    if (direction === 'right') {
       setSearchParams({
-        query: searchParams.get("query"),
-        page: Number(searchParams.get("page")) + 1,
+        query: searchParams.get('query'),
+        page: Number(searchParams.get('page')) + 1,
       });
     }
   };
 
   useEffect(() => {
-    query = searchParams.get("query");
-    page = searchParams.get("page");
+    query = searchParams.get('query');
+    page = searchParams.get('page');
     displayVideos();
   }, [searchParams]);
 
   useEffect(() => {
-    if (input === "") {
+    if (input === '') {
       setInput(query);
     }
   }, []);
@@ -63,9 +63,7 @@ const Videos = ({ setNavSearch, input, setInput }) => {
   return (
     <div className="results">
       {resultsLoading && <LoadingSpinner />}
-      {results && results.data.total === 0 && (
-        <h4>No videos were found. Refine your search.</h4>
-      )}
+      {results && results.data.total === 0 && <h4>No videos were found. Refine your search.</h4>}
       {results && (
         <div className="videos">
           {results.data.data.map((video) => (
@@ -81,15 +79,11 @@ const Videos = ({ setNavSearch, input, setInput }) => {
       {results && results.data.data.length !== 0 && (
         <div className="pages">
           {results.data.paging.previous !== null && (
-            <img src={Left} alt="left arrow" onClick={() => getPage("left")} />
+            <img src={Left} alt="left arrow" onClick={() => getPage('left')} />
           )}
           <p>{results.data.page}</p>
           {results.data.paging.next !== null && (
-            <img
-              src={Right}
-              alt="right arrow"
-              onClick={() => getPage("right")}
-            />
+            <img src={Right} alt="right arrow" onClick={() => getPage('right')} />
           )}
         </div>
       )}

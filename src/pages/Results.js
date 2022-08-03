@@ -14,6 +14,7 @@ const Videos = ({ setNavSearch }) => {
     if (query === "") {
       return;
     } else {
+      setNavSearch(false);
       setResultsLoading(true);
       setResults();
       const config = {
@@ -27,6 +28,7 @@ const Videos = ({ setNavSearch }) => {
       setResults(searchResult);
       console.log(searchResult);
       setResultsLoading(false);
+      setNavSearch(true);
     }
   };
   useEffect(() => {
@@ -34,10 +36,6 @@ const Videos = ({ setNavSearch }) => {
     page = searchParams.get("page");
     displayVideos();
   }, [searchParams]);
-
-  useEffect(() => {
-    setNavSearch(true);
-  }, []);
 
   return (
     <div className="results">

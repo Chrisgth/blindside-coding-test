@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getRelated } from "../services/getRelated";
 import { getVideo } from "../services/getVideo";
 import Parser from "html-react-parser";
+import LoadingSpinner from "../components/Spinner";
 
 const Video = ({ setNavSearch, user }) => {
   const [video, setVideo] = useState();
@@ -10,11 +11,15 @@ const Video = ({ setNavSearch, user }) => {
   const [text, setText] = useState("");
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(true);
+  const [videoLoading, setVideoLoading] = useState(true);
   const id = useParams();
   const displayVideo = async () => {
     if (id.id === "") {
       return;
     } else {
+      setVideoLoading(true);
+      setVideo();
+      setRelatedVideos();
       const config = {
         headers: { Authorization: `Bearer ${process.env.REACT_APP_APP_KEY}` },
       };
@@ -23,6 +28,7 @@ const Video = ({ setNavSearch, user }) => {
       console.log(searchResult);
       setVideo(searchResult);
       setRelatedVideos(relatedResult);
+      setVideoLoading(false);
     }
   };
 
@@ -58,6 +64,7 @@ const Video = ({ setNavSearch, user }) => {
   }, []);
   return (
     <div className="video">
+      {videoLoading && <LoadingSpinner />}
       {video && (
         <div className="videoContent">
           <div className="videoPlayer">

@@ -8,7 +8,6 @@ const Video = ({ setNavSearch }) => {
   const [video, setVideo] = useState();
   const [relatedVideos, setRelatedVideos] = useState();
   const id = useParams();
-  console.log(id.id);
   const displayVideo = async () => {
     if (id.id === "") {
       return;
@@ -20,10 +19,14 @@ const Video = ({ setNavSearch }) => {
       const relatedResult = await getRelated(config, id.id);
       setVideo(searchResult);
       setRelatedVideos(relatedResult);
+      console.log(searchResult);
+      console.log(relatedResult);
     }
   };
   useEffect(() => {
     displayVideo();
+  }, [id]);
+  useEffect(() => {
     setNavSearch(true);
   }, []);
   return (

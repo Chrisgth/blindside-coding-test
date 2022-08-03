@@ -5,8 +5,8 @@ import { getVideos } from "../services/getVideos";
 const Videos = ({ setNavSearch }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [results, setResults] = useState();
-  let query = searchParams.get("query");
-  let page = searchParams.get("page");
+  let query;
+  let page;
 
   const displayVideos = async () => {
     if (query === "") {
@@ -24,9 +24,13 @@ const Videos = ({ setNavSearch }) => {
       console.log(searchResult);
     }
   };
+  useEffect(() => {
+    query = searchParams.get("query");
+    page = searchParams.get("page");
+    displayVideos();
+  }, [searchParams]);
 
   useEffect(() => {
-    displayVideos();
     setNavSearch(true);
   }, []);
 

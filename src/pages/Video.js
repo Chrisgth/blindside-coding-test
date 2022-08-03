@@ -20,6 +20,7 @@ const Video = ({ setNavSearch, user }) => {
       };
       const searchResult = await getVideo(config, id.id);
       const relatedResult = await getRelated(config, id.id);
+      console.log(searchResult);
       setVideo(searchResult);
       setRelatedVideos(relatedResult);
     }
@@ -59,7 +60,13 @@ const Video = ({ setNavSearch, user }) => {
     <div className="video">
       {video && (
         <div className="videoContent">
-          <div className="videoPlayer">{Parser(video.data.embed.html)}</div>
+          <div className="videoPlayer">
+            {video.data.embed.html ? (
+              Parser(video.data.embed.html)
+            ) : (
+              <p>Embed not found.</p>
+            )}
+          </div>
           <div className="title">
             <h3>{video.data.name}</h3>
           </div>
